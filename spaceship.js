@@ -7,8 +7,8 @@ class Spaceship {
         this.speed = speed;
         this.color = color;
         this.bullets = [];
-        this.sparks = [];
         this.damage = 0;
+        this.health = 50;
         this.orientation = orientation;
     }
 
@@ -31,6 +31,13 @@ class Spaceship {
                 this.bullets[i].travel(this.orientation);
             }
         }
+    }
+
+    drawHealthBar(ctx, x, y) {
+        ctx.fillStyle = "gray";
+        ctx.fillRect(x, y, this.health * 4, 50);
+        ctx.fillStyle = "green";
+        ctx.fillRect(x, y, 4 * (this.health - this.damage), 50);
     }
 
     follow(coords) {
@@ -109,7 +116,7 @@ class Spaceship {
     }
 
     isDestroyed() {
-        return this.damage >= 25;
+        return this.damage >= this.health;
     }
 
     destroy() {
