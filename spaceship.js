@@ -17,7 +17,8 @@ class Spaceship {
     }
 
     drawPropulsion(ctx) {
-        drawTriangle(ctx, this.x, this.y, this.size * 0.1 * randomInteger(1, 3) * (-this.orientation), selectRandomColor(['yellow', 'orange', 'red']));
+        let colors = ['yellow', 'orange', 'red'];
+        drawTriangle(ctx, this.x, this.y, this.size * 0.1 * randomInteger(1, 3) * (-this.orientation), selectRandomColor(colors));
     }
 
     drawBullets(canvas, ctx, colors) {
@@ -95,7 +96,7 @@ class Spaceship {
     checkIfSpaceshipHit(spaceship) {
         if (this.bullets.length > 0) {
             for (let i = 0; i < this.bullets.length; i++) {
-                if (this.bullets[i].targetHit(spaceship)) {
+                if (this.bullets[i].targetHit(spaceship, this.orientation)) {
                     this.bullets.splice(i, 1);
                     spaceship.damageShip();
                 }
@@ -105,6 +106,14 @@ class Spaceship {
 
     shoot() {
         this.bullets.push(new Bullet(this.x, this.y - this.size * this.orientation, 4, 10));
+    }
+
+    isDestroyed() {
+        return this.damage >= 25;
+    }
+
+    destroy() {
+
     }
 
 }
@@ -125,27 +134,13 @@ class Bullet {
         this.y -= this.speed * orientation;
     }
 
-    targetHit(object) {
-        return (this.y - this.size < object.y) && isBetween(object.x - object.size, object.x + object.size, this.x);
+    targetHit(object, orientation = null) {
+        if (orientation == 1) {
+            return (this.y - this.size < object.y) && isBetween(object.x - object.size, object.x + object.size, this.x);
+        }
+        else {
+            return (this.y - this.size > object.y) && isBetween(object.x - object.size, object.x + object.size, this.x);
+        }
     }
 }
 
-class Rocket {
-
-}
-
-class Spark {
-    constructor(x, y, size, speed) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.speed = speed;
-    }
-    drawSpark(ctx) {
-
-    }
-
-    travel(orientation) {
-
-    }
-}

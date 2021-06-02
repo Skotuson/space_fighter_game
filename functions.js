@@ -62,6 +62,12 @@ function predictCoordinates(spaceship, player) {
     return player.x + randomInteger(0, 500) * (randomInteger(-1, 1));
 }
 
+function displayText(ctx, text, x, y, color) {
+    ctx.font = "30px Arial";
+    ctx.fillStyle = color;
+    ctx.fillText(text, x, y);
+}
+
 
 
 

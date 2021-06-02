@@ -15,6 +15,8 @@ canvas.addEventListener('mousemove', e => {
 
 function draw() {
     redrawCanvas(ctx);
+    displayText(ctx, `Pirate ${25 - pirate.damage}/25`, 10, 30, "red");
+    displayText(ctx, `Player ${25 - player.damage}/25`, 10, canvas.height - 10, "green");
 
     if (space.canGenerateStars()) {
         space.addStar(new Star(randomInteger(0, canvas.width), randomInteger(-canvas.height, 0), randomInteger(5, 7), randomInteger(5, 7), 5));
@@ -38,7 +40,8 @@ function draw() {
         timer = 0;
     }
     pirate.follow(pirateCoords);
-    pirate.drawBullets(canvas, ctx, ['red', 'orange']);
+    pirate.drawBullets(canvas, ctx, ["blue"]);
+    pirate.checkIfSpaceshipHit(player);
     timer++;
 
     player.follow(coords);
@@ -52,7 +55,11 @@ function draw() {
     player.checkBulletCollision(space.asteroids);
     player.checkIfSpaceshipHit(pirate);
 
-    window.requestAnimationFrame(draw);
+    let animation = window.requestAnimationFrame(draw);
+
+    if (player.isDestroyed() || pirate.isDestroyed()) {
+        window.cancelAnimationFrame(animation);
+    }
 }
 
 draw();
