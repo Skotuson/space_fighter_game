@@ -1,6 +1,6 @@
 
 class Spaceship {
-    constructor(x, y, size, speed, color, orientation) {
+    constructor(x, y, size, speed, health, color, orientation) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -8,7 +8,7 @@ class Spaceship {
         this.color = color;
         this.bullets = [];
         this.damage = 0;
-        this.health = 50;
+        this.health = health;
         this.orientation = orientation;
     }
 

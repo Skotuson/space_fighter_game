@@ -41,15 +41,6 @@ function drawTriangle(ctx, x, y, size, color) {
     ctx.fill();
 }
 
-function drawTriangleDown(ctx, x, y, size, color) {
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(x, y + size);
-    ctx.lineTo(x - size * 0.5, y);
-    ctx.lineTo(x + size * 0.5, y);
-    ctx.fill();
-}
-
 function selectRandomColor(colors) {
     return colors[randomInteger(0, colors.length - 1)];
 }

@@ -2,8 +2,8 @@ const canvas = document.getElementById('canvas');
 setCanvas(canvas, "black");
 const ctx = canvas.getContext('2d');
 
-let player = new Spaceship(canvas.width / 2, canvas.height - 75, 50, 7, '#190019', 1);
-let pirate = new Spaceship(canvas.width / 2, 75, 55, 3, 'orange', -1);
+let player = new Spaceship(canvas.width / 2, canvas.height - 75, 50, 7, 25, '#190019', 1);
+let pirate = new Spaceship(canvas.width / 2, 75, 55, 3, 50, 'orange', -1);
 let pirateCoords = canvas.width / 2;
 let space = new Space();
 let coords = canvas.width / 2;
@@ -11,6 +11,12 @@ let timer = 0;
 
 canvas.addEventListener('mousemove', e => {
     coords = e.clientX - canvas.offsetLeft;
+})
+
+canvas.addEventListener('click', e => {
+    if (player.isDestroyed() || pirate.isDestroyed()) {
+
+    }
 })
 
 function draw() {
@@ -58,7 +64,13 @@ function draw() {
 
     let animation = window.requestAnimationFrame(draw);
 
-    if (player.isDestroyed() || pirate.isDestroyed()) {
+    if (player.isDestroyed()) {
+        displayText(ctx, "You lose :-( !", canvas.width / 2, canvas.height / 2, "red");
+        window.cancelAnimationFrame(animation);
+    }
+
+    if (pirate.isDestroyed()) {
+        displayText(ctx, "You win!", canvas.width / 2, canvas.height / 2, "green");
         window.cancelAnimationFrame(animation);
     }
 
